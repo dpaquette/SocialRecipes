@@ -1,0 +1,64 @@
+﻿@using SocialRecipesMVC4.Domain
+@model Recipe
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <h3>New Recipe</h3>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ingredients)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Ingredients)
+            @Html.ValidationMessageFor(model => model.Ingredients)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Directions)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Directions)
+            @Html.ValidationMessageFor(model => model.Directions)
+        </div>
+        
+        <div class="editor-label">
+            Share with the following groups
+        </div>
+        <div class="editor-field">
+            @foreach(Group group in ViewBag.Groups)
+            {
+                <input type="checkbox" name="groups" value="@group.Id" checked="checked" /> @group.Name
+            }
+        </div>
+        
+        <p class="no-border">
+            <input class="button" type="submit" value="Create" tabindex="5" />
+        </p>    
+    </fieldset>
+}
+

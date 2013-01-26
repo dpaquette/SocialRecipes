@@ -1,0 +1,13 @@
+﻿@model SocialRecipesMVC4.Models.GroupSummaryModel
+
+<div class="post">
+    <h3>@Model.Name</h3>
+    <p class="post-info">
+        Members (@Model.UserCount)</p>
+    <p>@Model.Description</p>
+    <p class="postmeta">
+        @Html.ActionLink("View Group", "Details", "Group", new { id = Model.Id }, new { @class = "readmore" })
+        |
+        @Html.ActionLink("New Recipes (" + Model.NewRecipesCount + ")", "Details", "Group", new { id = Model.Id }, new { @class = "readmore" })
+    </p>
+</div>

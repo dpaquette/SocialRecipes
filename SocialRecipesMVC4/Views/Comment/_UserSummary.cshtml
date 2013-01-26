@@ -1,0 +1,10 @@
+﻿@model SocialRecipesMVC4.Domain.Comment
+<div class="usercomment">
+    <div class="title"> @Model.Recipe.Name</div>
+    <div class="details">
+        Commented on @Model.PostedOn.ToShortDateString()
+    </div>
+    <div class="comment">
+        @Model.CommentValue
+    </div>
+</div>

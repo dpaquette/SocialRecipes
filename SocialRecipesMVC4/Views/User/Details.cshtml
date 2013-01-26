@@ -1,0 +1,23 @@
+﻿@using SocialRecipesMVC4.Domain
+@model User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<h3>Recent Recipes</h3>
+<div>
+    @foreach(Recipe recipe in ViewBag.RecentRecipes)
+    {
+        @Html.Partial("~/Views/Recipe/_Summary.cshtml", recipe)
+    }
+</div>
+
+<h3>Recent Comments</h3>
+@foreach(Comment comment in ViewBag.RecentComments)
+{
+    @Html.Partial("~/Views/Comment/_UserSummary.cshtml", comment)
+}

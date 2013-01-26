@@ -1,0 +1,18 @@
+﻿@model SocialRecipesMVC4.Domain.Recipe
+<div class="post">
+    <h3>@Model.Name</h3>
+    <p class="post-info">
+        Posted by @Html.ActionLink(Model.User.Name, "Details", "User", new { id = Model.User.Id }, null)</p>
+    <p>@Model.Description</p>
+    <p class="postmeta">
+        @Html.ActionLink("Full Recipe", "Details", "Recipe", new { id = Model.Id }, new { @class = "readmore" })
+        |
+        @Html.ActionLink("Comments(" + Model.Comments.Count() + ")", "Details", "Recipe", new { id = Model.Id }, new { @class = "comments" })
+        | <span class="date">@Model.PostedOn.ToShortDateString()</span>
+        @if (Model.User.Id.ToUpper() == User.Identity.Name.ToUpper())
+        {
+            @:|
+            @Html.ActionLink("Edit", "Edit", "Recipe", new { id = Model.Id }, new { @class = "edit" })
+        }
+    </p>
+</div>

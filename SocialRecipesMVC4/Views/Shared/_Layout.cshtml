@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Social Recipes</title>
+    <link href="@Url.Content("~/Content/css/screen.css")" rel="stylesheet" type="text/css" />
+    @Scripts.Render("~/bundles/modernizr")  
+</head>
+@{
+    var controller = (ViewContext.RouteData.Values["controller"] as string ?? "Home").ToLower();
+  
+}
+<body>
+    <div class="page">
+        <!-- header starts-->
+        <div id="header-wrap">
+            <div id="header" class="container_16">
+                <h1 id="logo-text">
+                    <a href="index.html" title="">Social Recipes</a></h1>
+                <p id="intro">
+                    All your recipes are belong to us...</p>
+                <div id="header-image">
+                </div>
+                <!-- navigation -->
+                <div id="nav">
+                    <ul>
+                        <li @(controller == "recipe" ? "id=current" : "")>@Html.ActionLink("My Recipes", "Index", "Recipe")</li>
+                        <li @(controller == "group" ? "id=current" : "")>@Html.ActionLink("Groups", "Index", "Group")</li>
+                    </ul>
+                </div>
+                <div id="logindisplay">
+                    @Html.Partial("_LogOnPartial")
+                </div>
+            </div>
+        </div>
+        <!-- header ends here -->
+        <!-- content starts -->
+        <div id="content-outer">
+            <div id="content-wrapper" >
+                <!-- main -->
+                <div id="main" >
+                    @RenderBody()
+                </div>
+                <!-- left-columns starts -->
+
+                <!-- contents end here -->
+            </div>
+        </div>
+        <!-- footer starts here -->
+        <div id="footer-wrapper" class="container_16">
+            <div id="footer-bottom">
+                <p class="bottom-left">
+                    &nbsp; &copy;2012 David Paquette &nbsp; &nbsp; Design by <a href="http://www.styleshout.com/">
+                        styleshout</a>
+                </p>               
+            </div>
+        </div>
+        <!-- footer ends here -->
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    @StackExchange.Profiling.MiniProfiler.RenderIncludes() 
+</body>
+</html>

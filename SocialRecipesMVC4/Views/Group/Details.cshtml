@@ -1,0 +1,39 @@
+﻿@using SocialRecipesMVC4.Domain
+@model Group
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@Model.Name</h2>
+<p>
+    @Model.Description
+   
+</p>
+<br/>
+<div class="container_16">
+    <div class="grid_12">
+        <h3>
+            Recent Recipes</h3>
+        <div>
+            @foreach (Recipe recipe in ViewBag.RecentRecipes)
+            {
+                @Html.Partial("~/Views/Recipe/_Summary.cshtml", recipe)
+            }
+        </div>
+    </div>
+    <div id="left-columns" class="grid_4">
+        <div id="memberlist" class="grid_4">
+            <h3>Members</h3>
+                 
+            <ul>
+                @foreach (User member in Model.Users)
+                {
+                    <li>
+                        @Html.ActionLink(member.Name, "Details", "User", new {id = member.Id}, null)
+                    </li>
+                }
+            </ul>
+            @Html.ActionLink("Join this group!", "Join", new { @Model.Id })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿@using SocialRecipesMVC4.Domain
+@model IEnumerable<Recipe>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h5>
+    @Html.ActionLink("Create New Recipe", "Create")
+</h5>
+<div>
+    @foreach (Recipe recipe in Model)
+    {
+        @Html.Partial("~/Views/Recipe/_Summary.cshtml", recipe)
+    }
+</div>
+
+

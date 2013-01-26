@@ -1,0 +1,15 @@
+﻿@using SocialRecipesMVC4.Models
+@model IEnumerable<GroupSummaryModel>
+
+@{
+    ViewBag.Title = "Social Recipes - Groups";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New Group", "Create")
+</p>
+
+@foreach (GroupSummaryModel group in Model) {
+    @Html.Partial("~/Views/Group/_Summary.cshtml", group)
+}

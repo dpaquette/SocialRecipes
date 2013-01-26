@@ -1,0 +1,60 @@
+﻿@using SocialRecipesMVC4.Domain
+@model Recipe
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@Model.Name</h2>
+<p class="post-info">
+    Posted by @Html.ActionLink(Model.User.Name, "Details", "User", new { id = Model.User.Id }, null)
+</p>
+
+<p>@Model.Description</p>
+
+<h4>Ingredients</h4>
+<p>
+    @Html.Raw(Html.Encode(Model.Ingredients).Replace("\n", "<br />"))
+</p>
+<h4>Directions</h4>
+<p>
+    @Html.Raw(Html.Encode(Model.Directions).Replace("\n", "<br />"))
+</p>
+<p class="postmeta">
+    @Html.ActionLink("Comments(" + Model.Comments.Count() + ")", "Details", "Recipe", new { id = Model.Id }, new {@class="comments"}) | 
+    <span class="date">@Model.PostedOn.ToShortDateString()</span> 
+    @if(Model.User.Id.ToUpper() == User.Identity.Name.ToUpper())
+    {
+        @:| 
+        @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class="edit"})        
+    }
+</p>
+<h3 id="comments">
+    @Model.Comments.Count() Comments</h3>
+<ol class="commentlist">
+@foreach (Comment comment in Model.Comments.OrderByDescending(c => c.PostedOn))
+{
+    <li >
+        <cite>
+            <img alt="" src="@Url.Content("~/Content/Images/gravatar.jpg")" class="avatar" height="40" width="40"/>
+            @Html.ActionLink(comment.User.Name, "Details", "User", new { id = comment.User.Id }, null) Says:
+            <br/>
+            <span class="comment-data">@comment.PostedOn.ToShortDateString(), at @comment.PostedOn.ToShortTimeString()</span>
+        </cite>
+        <div class="comment-text">
+        <p>
+        @Html.Raw(Html.Encode(comment.CommentValue).Replace("\n", "<br />"))
+        </p>
+    </div>
+
+    </li>
+}
+</ol>
+<h3 id="respond">Post a comment</h3>
+@using (Html.BeginForm("AddComment", "Recipe", FormMethod.Post))
+{
+    @Html.Hidden("recipeId", Model.Id)
+    @Html.TextArea("commentValue", new {style = "width:450px; height: 150px"})
+<p class="no-border">
+    <input class="button" type="submit" value="Submit" />
+</p>
+}
