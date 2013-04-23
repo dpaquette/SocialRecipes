@@ -1,3 +1,5 @@
+using SocialRecipesMVC4.Domain;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(SocialRecipesMVC4.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(SocialRecipesMVC4.App_Start.NinjectWebCommon), "Stop")]
 
@@ -42,7 +44,7 @@ namespace SocialRecipesMVC4.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            
+            kernel.Bind<RecipeContext>().ToSelf().InRequestScope();
             RegisterServices(kernel);
             return kernel;
         }
